@@ -1,24 +1,68 @@
 @extends ('layouts.master')
 
-@section('title')	LaravelApp - Posts @endsection('title')
+@section('title')	LaravelApp - Post @endsection('title')
 
 @section('content')
 
-	<h1>Lista svih postova</h1>
+	<div class="blog-post">
 
-	@foreach($posts as $post)
-		<div class="blog-post">
+		<h1 class="blog-post-title">{{$post->title}}</h1>
 
-			<h2 class="blog-post-title">
-				<a href = "/posts/{{$post->id}}"> {{$post->title}}  </a>
-			</h2>
+		<p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} </p>
 
-			<p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} </p>
+		<p>{{$post->body}}</p>
 
-			<p>{{$post->body}}</p>
+		{{-- forma za unos komentara --}}
+		@if ($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+		<div class="card">
 
-		</div><!-- /.blog-post -->
-	@endforeach
+			<div class="card-block">
+
+				<form method="POST" action="/posts/{{$post->id}}/comments">
+
+					@csrf
+
+					<div class="form-group">
+						<textarea class="form-control" id="body" name="body" required ></textarea>
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Add Comment</button>
+					</div>
+
+				</form>
+
+			</div>
+
+		</div>
+
+		<div class="comments">
+			<ul class="list-group">
+				@foreach($post->comments as $comment)
+
+					<li class="list-group-item">
+						<strong>
+							{{$comment->created_at->diffForHumans() }}: &nbsp;
+						</strong>
+						{{$comment->body}}
+					</li>
+
+				@endforeach
+
+			</ul>
+
+		</div>
+	</div>
+
+
 
 @endsection('content')
 

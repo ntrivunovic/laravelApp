@@ -105,4 +105,8 @@ class PostsController extends Controller
     {
         //
     }
+
+    public function addComment(){
+        echo "addComment!";
+    }
 }

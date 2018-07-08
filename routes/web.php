@@ -40,7 +40,7 @@ Route::get('/tasks', function () {
 
 //sa kontrolerom:
 Route::get('/tasks', 'TasksController@index');
-Route::get('/tasks/{id}', 'TasksController@show');
+Route::get('/tasks/{task}', 'TasksController@show');
 
 
 
@@ -80,3 +80,11 @@ Route::get('/userRole/{id}', function ($user_id) {
 Route::get('/roleUser', function () {
     return App\Role::find(2)->users()->get();
 });
+
+
+//POSTS
+Route::get('/posts', "PostsController@index");
+Route::get('/posts/create', "PostsController@create");
+Route::post("/posts", "PostsController@store");
+Route::get('/posts/{post}', "PostsController@show");
+Route::post('/posts/{post}/comments', "CommentsController@store");

@@ -1,22 +1,24 @@
 @extends ('layouts.master')
 
-@section('title')
-	LaravelApp
-@endsection('title')
+@section('title')	LaravelApp - Posts @endsection('title')
 
 @section('content')
 
-<p>Ispis svih zadataka:</p>
+	<h1>Lista svih postova</h1>
 
-<ul>
-		@foreach($tasks as $task)
-			<li>
-				<a href = "/tasks/{{$task->id}}">
-					{{$task->opis}}
-				</a>
-			</li>
-		@endforeach
-</ul>
+	@foreach($posts as $post)
+		<div class="blog-post">
+
+			<h2 class="blog-post-title">
+				<a href = "/posts/{{$post->id}}"> {{$post->title}}  </a>
+			</h2>
+
+			<p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} </p>
+
+			<p>{{$post->body}}</p>
+
+		</div><!-- /.blog-post -->
+	@endforeach
 
 @endsection('content')
 
