@@ -34,6 +34,13 @@
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#">Disabled</a>
                         </li>
+						
+						@if(Auth::check())
+							<li class="nav-item ml-auto">
+								<a class="nav-link" href="#">{{Auth::user->name}}</a>
+							</li>	
+						@endif
+						
                     </ul>
                 </div>
             </nav>

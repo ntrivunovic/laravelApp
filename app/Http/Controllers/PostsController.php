@@ -7,6 +7,11 @@ use App\Post;
 
 class PostsController extends Controller
 {
+	
+	public function __construct()
+	{
+		$this->middleware('auth')->except(['index','show']);
+	}
     /**
      * Display a listing of the resource.
      *
@@ -56,8 +61,15 @@ class PostsController extends Controller
             'body' => 'required',
         ]);
 
-        Post::create(request(['title', 'body']));
-        //redirekcija na početnu stranicu
+        /*Post::create([
+			'title' => request('title'),
+			'body' => request('body'),
+			'user_id' => auth()->id()//može i auth()->user()->id
+		]);*/
+		
+		auth()->user->publish(new Post(request(['title','body'])));
+        
+		//redirekcija na početnu stranicu
         return redirect('/');
     }
 

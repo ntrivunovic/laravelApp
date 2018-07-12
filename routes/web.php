@@ -83,7 +83,7 @@ Route::get('/roleUser', function () {
 
 
 //POSTS
-Route::get('/posts', "PostsController@index");
+Route::get('/posts', "PostsController@index")->name('home');
 Route::get('/posts/create', "PostsController@create");
 Route::post("/posts", "PostsController@store");
 Route::get('/posts/{post}', "PostsController@show");
@@ -91,4 +91,7 @@ Route::get('/posts/{post}', "PostsController@show");
 
 //autentikacija korisnika
 Route::get('/register', 'RegistrationController@create');
+Route::post('/register', 'RegistrationController@store');
+
 Route::get('/login', 'SessionController@create');
+Route::get('/logout', 'SessionController@destroy');
