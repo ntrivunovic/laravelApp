@@ -34,4 +34,12 @@ class User extends Authenticatable
     public function zadaci(){
         return $this->hasMany('App\Task');
     }
+
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
 }
